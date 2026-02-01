@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Veux-tu être ma Valentine ? 💕</title>
+    <script>
+        tailwind.config = {
+            theme: { extend: { animation: { 'pulse-fast': 'pulse 1s infinite' } } }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-pink-300 flex flex-col justify-center items-center text-white font-sans p-4">
+    
+    <h1 class="text-5xl text-black md:text-6xl font-bold mb-12 drop-shadow-2xl animate-pulse">Ninja Girl🥷🏾, veux-tu être ma Valentine ?🥹👉🏾👈🏾💕</h1>
+    
+    <button id="oui" 
+        class="fixed px-8 py-6 text-xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 text-white rounded-full shadow-2xl hover:scale-125 transition-all duration-300 z-20 min-w-[140px] hover:shadow-pink-500/50">
+        Oui 😍
+    </button>
+    
+    <button id="non" 
+        class="fixed px-8 py-6 text-xl font-bold bg-gray-200 text-gray-800 rounded-full shadow-xl hover:scale-90 transition-all duration-200 z-10 min-w-[140px]">
+        Non 🙄
+    </button>
+    
+    <div id="success" class="fixed inset-0 bg-black/80 flex flex-col justify-center items-center z-30 hidden">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWZxaXJ4NTI1dGU3cmRqaGU4cnMzMWxjYng2NGcwamx6OWl6M3NybSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/CxaZVDtc8yg4o/giphy.gif" alt="Succès !" class="w-72 h-72 md:w-96 md:h-96 mx-auto mb-8 animate-bounce">
+        <h2 class="text-4xl md:text-5xl font-black bg-gradient-to-r from-yellow-400 to-pink-500 bg-clip-text text-transparent drop-shadow-2xl animate-pulse">
+            Woooww Superrr ! 🌟
+        </h2>
+    </div>
+
+    <script>
+        const ouiBtn = document.getElementById('oui');
+        const nonBtn = document.getElementById('non');
+        const success = document.getElementById('success');
+
+        // Position initiale
+        ouiBtn.style.left = 'calc(50% - 100px)';
+        ouiBtn.style.top = 'calc(50% + 30px)';
+        nonBtn.style.left = 'calc(50% + 80px)';
+        nonBtn.style.top = 'calc(50% + 30px)';
+
+        // Bouton Non fuit (magique avec Tailwind !)
+        nonBtn.addEventListener('mouseenter', () => {
+            const maxX = window.innerWidth - 180;
+            const maxY = window.innerHeight - 180;
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+            nonBtn.style.left = newX + 'px';
+            nonBtn.style.top = newY + 'px';
+        });
+
+        // Bouton Oui grandit progressivement
+        ouiBtn.addEventListener('mouseenter', () => {
+            const currentScale = parseFloat(ouiBtn.getAttribute('data-scale') || 1);
+            if (currentScale < 2) {
+                const newScale = Math.min(currentScale + 0.2, 2);
+                ouiBtn.setAttribute('data-scale', newScale);
+                ouiBtn.style.transform = `scale(${newScale})`;
+            }
+        });
+
+        // Succès magique !
+        ouiBtn.addEventListener('click', () => {
+            document.querySelectorAll('button').forEach(b => b.style.display = 'none');
+            success.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
