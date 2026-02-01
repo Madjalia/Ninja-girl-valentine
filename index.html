@@ -15,36 +15,36 @@
     
     <!-- Popup nom (caché par défaut) -->
     <div id="namePopup" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-        <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-8 max-w-sm w-11/12 mx-4 text-center shadow-2xl animate-pulse">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">Surprise !!!🙃</h2>
+        <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 md:p-8 max-w-sm w-11/12 mx-4 text-center shadow-2xl animate-pulse">
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 md:mb-6">Surprise !!!🙃</h2>
         <input type="text" id="userName" placeholder="Ton prénom s'il te plaît..." 
-       class="w-full px-6 py-4 text-lg text-gray-800 border-2 border-pink-200 rounded-2xl focus:border-pink-400 focus:outline-none text-center font-semibold mb-6 bg-white shadow-inner">
-            <button onclick="startValentine()" class="px-8 py-4 bg-gradient-to-r from-pink-400 to-rose-400 text-white rounded-2xl font-bold text-lg hover:scale-105 transition-all duration-200">
+       class="w-full px-4 md:px-6 py-3 md:py-4 text-base md:text-lg text-gray-800 border-2 border-pink-200 rounded-2xl focus:border-pink-400 focus:outline-none text-center font-semibold mb-4 md:mb-6 bg-white shadow-inner">
+            <button onclick="startValentine()" class="px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-pink-400 to-rose-400 text-white rounded-2xl font-bold text-base md:text-lg hover:scale-105 transition-all duration-200">
                 C'est parti !
             </button>
         </div>
     </div>
     
     <!-- Titre DYNAMIQUE (caché au début) -->
-    <h1 id="dynamicTitle" class="text-5xl text-black md:text-6xl font-bold mb-12 drop-shadow-2xl animate-pulse hidden">
+    <h1 id="dynamicTitle" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-black font-bold mb-8 md:mb-12 drop-shadow-2xl animate-pulse hidden text-center px-4">
         <span id="nameDisplay"></span>, veux-tu être ma Valentine ?🥹👉🏾👈🏾
     </h1>
     
     <!-- Boutons (cachés au début) -->
     <button id="oui" 
-        class="fixed px-8 py-6 text-xl font-bold mt-8 bg-gradient-to-r from-pink-400 to-rose-400 text-white rounded-full shadow-2xl hover:scale-125 transition-all duration-300 z-20 min-w-[140px] hover:shadow-pink-500/50 hidden">
+        class="fixed px-6 md:px-8 py-4 md:py-6 text-lg md:text-xl font-bold mt-8 bg-gradient-to-r from-pink-400 to-rose-400 text-white rounded-full shadow-2xl hover:scale-125 transition-all duration-300 z-20 min-w-[120px] md:min-w-[140px] hover:shadow-pink-500/50 hidden">
         Oui 😍
     </button>
     
     <button id="non" 
-        class="fixed px-8 py-6 text-xl font-bold mt-8 bg-gray-200 text-gray-800 rounded-full shadow-xl hover:scale-90 transition-all duration-200 z-10 min-w-[140px] hidden">
+        class="fixed px-6 md:px-8 py-4 md:py-6 text-lg md:text-xl font-bold mt-8 bg-gray-200 text-gray-800 rounded-full shadow-xl hover:scale-90 transition-all duration-200 z-10 min-w-[120px] md:min-w-[140px] hidden">
         Non 🙄
     </button>
     
     <!-- Succès -->
-    <div id="success" class="fixed inset-0 bg-black/80 flex flex-col justify-center items-center z-30 hidden">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc3Y2aWoxeHFnOGF5cGFlYW92cDJhY2IydGd4d3U2M2Z5Z2l2eDByeCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/u8u0R51ND9L2/giphy.gif" alt="Succès !" class="w-72 h-72 md:w-96 md:h-96 mx-auto mb-8 animate-bounce">
-        <h2 class="text-4xl md:text-5xl font-black bg-gradient-to-r from-yellow-400 to-pink-500 bg-clip-text text-transparent drop-shadow-2xl animate-pulse">
+    <div id="success" class="fixed inset-0 bg-black/80 flex flex-col justify-center items-center z-30 hidden px-4">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc3Y2aWoxeHFnOGF5cGFlYW92cDJhY2IydGd4d3U2M2Z5Z2l2eDByeCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/u8u0R51ND9L2/giphy.gif" alt="Succès !" class="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 mx-auto mb-6 md:mb-8 animate-bounce">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black bg-gradient-to-r from-yellow-400 to-pink-500 bg-clip-text text-transparent drop-shadow-2xl animate-pulse text-center">
             Woooww Superrr ! ❤️‍🩹
         </h2>
     </div>
@@ -86,27 +86,43 @@
             nonBtn.style.top = 'calc(50% + 30px)';
         }
 
-        // Bouton Non fuit
-        nonBtn.addEventListener('mouseenter', () => {
+        // Fonction pour déplacer le bouton Non
+        function moveNonButton() {
             const maxX = window.innerWidth - 180;
             const maxY = window.innerHeight - 180;
             const newX = Math.random() * maxX;
             const newY = Math.random() * maxY;
             nonBtn.style.left = newX + 'px';
             nonBtn.style.top = newY + 'px';
-        });
+        }
 
-        // Bouton Oui grandit
-        ouiBtn.addEventListener('mouseenter', () => {
+        // Fonction pour agrandir le bouton Oui
+        function growOuiButton() {
             const currentScale = parseFloat(ouiBtn.getAttribute('data-scale') || 1);
             if (currentScale < 2) {
                 const newScale = Math.min(currentScale + 0.2, 2);
                 ouiBtn.setAttribute('data-scale', newScale);
                 ouiBtn.style.transform = `scale(${newScale})`;
             }
+        }
+
+        // Bouton Non fuit au survol (desktop)
+        nonBtn.addEventListener('mouseenter', moveNonButton);
+
+        // Bouton Non fuit au clic (mobile/tablette)
+        nonBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            moveNonButton();
+            growOuiButton();
         });
 
-        // Succès
+        // Bouton Oui grandit au survol (desktop)
+        ouiBtn.addEventListener('mouseenter', growOuiButton);
+
+        // Bouton Oui grandit au toucher (mobile/tablette)
+        ouiBtn.addEventListener('touchstart', growOuiButton);
+
+        // Succès au clic sur Oui
         ouiBtn.addEventListener('click', () => {
             document.querySelectorAll('button').forEach(b => b.style.display = 'none');
             dynamicTitle.style.display = 'none';
