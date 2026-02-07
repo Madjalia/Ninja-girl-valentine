@@ -1,110 +1,187 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Veux-tu être ma Valentine ? 💕</title>
-    <script>
-        tailwind.config = {
-            theme: { extend: { animation: { 'pulse-fast': 'pulse 1s infinite' } } }
-        }
-    </script>
-</head>
-<body class="min-h-screen bg-pink-300 flex flex-col justify-center items-center text-white font-sans p-4 cursor-auto">
-    
-    <!-- Popup nom -->
-    <div id="namePopup" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-        <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-6 md:p-8 max-w-sm w-11/12 mx-4 text-center shadow-2xl animate-pulse">
-            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-4 md:mb-6">Surprise !!!🙃</h2>
-        <input type="text" id="userName" placeholder="Ton prénom s'il te plaît..." 
-       class="w-full px-4 md:px-6 py-3 md:py-4 text-base md:text-lg text-gray-800 border-2 border-pink-200 rounded-2xl focus:border-pink-400 focus:outline-none text-center font-semibold mb-4 md:mb-6 bg-white shadow-inner">
-            <button onclick="startValentine()" class="px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-pink-400 to-rose-400 text-white rounded-2xl font-bold text-base md:text-lg hover:scale-105 transition-all duration-200">
-                C'est parti !
-            </button>
-        </div>
-    </div>
-    
-    <!-- Titre  -->
-    <h1 id="dynamicTitle" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-black font-bold mb-8 md:mb-12 drop-shadow-2xl animate-pulse hidden text-center px-4">
-        <span id="nameDisplay"></span>, veux-tu être ma Valentine ?🥹👉🏾👈🏾
-    </h1>
-    
-    <!-- Boutons  -->
-    <button id="oui" 
-        class="fixed px-6 md:px-8 py-4 md:py-6 text-lg md:text-xl font-bold mt-8 bg-gradient-to-r from-pink-400 to-rose-400 text-white rounded-full shadow-2xl hover:scale-125 transition-all duration-300 z-20 min-w-[120px] md:min-w-[140px] hover:shadow-pink-500/50 hidden">
-        Oui 😍
-    </button>
-    
-    <button id="non" 
-        class="fixed px-6 md:px-8 py-4 md:py-6 text-lg md:text-xl font-bold mt-8 bg-gray-200 text-gray-800 rounded-full shadow-xl hover:scale-90 transition-all duration-200 z-10 min-w-[120px] md:min-w-[140px] hidden">
-        Non 🙄
-    </button>
-    
-    <!-- Succès -->
-    <div id="success" class="fixed inset-0 bg-black/80 flex flex-col justify-center items-center z-30 hidden px-4">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExc3Y2aWoxeHFnOGF5cGFlYW92cDJhY2IydGd4d3U2M2Z5Z2l2eDByeCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/u8u0R51ND9L2/giphy.gif" alt="Succès !" class="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 mx-auto mb-6 md:mb-8 animate-bounce">
-        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black bg-gradient-to-r from-yellow-400 to-pink-500 bg-clip-text text-transparent drop-shadow-2xl animate-pulse text-center">
-            Woooww Superrr ! ❤️‍🩹
-        </h2>
-    </div>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Will you be my Valentine ? 💖</title>
+  
 
-    <script>
-        const namePopup = document.getElementById('namePopup');
-        const dynamicTitle = document.getElementById('dynamicTitle');
-        const nameDisplay = document.getElementById('nameDisplay');
-        const userNameInput = document.getElementById('userName');
-        const ouiBtn = document.getElementById('oui');
-        const nonBtn = document.getElementById('non');
-        const success = document.getElementById('success');
+  <script src="https://cdn.tailwindcss.com"></script>
 
-        // Popup nom au chargement
-        window.addEventListener('load', () => {
-            namePopup.classList.remove('hidden');
-            userNameInput.focus();
-        });
-
-        // Démarrer avec le nom
-        function startValentine() {
-            const name = userNameInput.value.trim();
-            if (name === '') {
-                alert('Entre ton prénom stp 💕');
-                return;
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          animation: {
+            float: 'float 3s ease-in-out infinite',
+            fadeIn: 'fadeIn 1.2s ease-out forwards'
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' }
+            },
+            fadeIn: {
+              '0%': { opacity: 0, transform: 'translateY(20px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' }
             }
-            
-            // Cache popup, montre titre personnalisé + boutons
-            namePopup.style.display = 'none';
-            nameDisplay.textContent = name;
-            dynamicTitle.classList.remove('hidden');
-            ouiBtn.classList.remove('hidden');
-            nonBtn.classList.remove('hidden');
-            
-            // Position initiale boutons (responsive)
-            const isMobile = window.innerWidth < 768;
-            const ouiWidth = isMobile ? 120 : 140;
-            const spacing = isMobile ? 10 : 20;
-            
-            ouiBtn.style.left = `calc(50% - ${ouiWidth + spacing}px)`;
-            ouiBtn.style.top = 'calc(50% + 30px)';
-            nonBtn.style.left = `calc(50% + ${spacing}px)`;
-            nonBtn.style.top = 'calc(50% + 30px)';
+          }
         }
+      }
+    }
 
-        // Fonction pour déplacer le bouton Non
-        function moveNonButton() {
-            const isMobile = window.innerWidth < 768;
-            const buttonWidth = isMobile ? 120 : 180;
-            const maxX = window.innerWidth - buttonWidth;
-            const maxY = window.innerHeight - buttonWidth;
-            const newX = Math.random() * maxX;
-            const newY = Math.random() * maxY;
-            nonBtn.style.left = newX + 'px';
-            nonBtn.style.top = newY + 'px';
-        }
+    
+    
+  </script>
+</head>
 
-        // Fonction pour agrandir le bouton Oui
-        function growOuiButton() {
-            const currentScale = parseFloat(ouiBtn.getAttribute('data-scale') || 1);
+<body class="min-h-screen bg-gradient-to-br from-pink-400 via-rose-300 to-red-300 flex flex-col items-center justify-center text-white font-sans overflow-hidden">
+
+ 
+  <div class="absolute top-4 px-6 py-2 rounded-full bg-white/20 backdrop-blur-md shadow-lg text-sm sm:text-base font-semibold animate-fadeIn">
+    💘 Valentine’s Day — 14 February 2026 💘
+  </div>
+
+  <!-- Page Principale -->
+  <div id="namePopup" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+    <div class="bg-white/95 backdrop-blur-xl rounded-3xl p-8 max-w-sm w-11/12 text-center shadow-2xl animate-fadeIn">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6">
+        Une petite surprise… 💌
+      </h2>
+
+      <input
+        id="userName"
+        type="text"
+        placeholder="Entre ton prénom...."
+        class="w-full px-5 py-4 text-lg text-gray-800 rounded-2xl border-2 border-pink-200 focus:border-pink-400 focus:outline-none text-center font-semibold mb-6 shadow-inner"
+      />
+
+      <button
+        onclick="startValentine()"
+        class="px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-2xl font-bold text-lg hover:scale-105 transition-all duration-300 shadow-lg">
+        Continuer 💕
+      </button>
+    </div>
+  </div>
+
+  <!-- Texte Mère😂 -->
+  <h1 id="dynamicTitle"
+      class="hidden text-center text-3xl sm:text-4xl md:text-5xl font-black drop-shadow-2xl animate-fadeIn px-6">
+    <span id="nameDisplay"></span>,
+    <br class="sm:hidden">
+    Veux-tu être ma Valentine ? 🥹👉👈
+  </h1>
+
+  <!-- Bouttons -->
+  <div class="relative mt-16">
+    <button id="oui"
+      class="fixed px-8 py-5 text-xl font-bold bg-gradient-to-r from-pink-500 to-red-500 text-white rounded-full shadow-2xl hover:scale-125 transition-all duration-300 hidden z-20">
+      Oui 😍
+    </button>
+
+    <button id="non"
+      class="fixed px-8 py-5 text-xl font-bold bg-white text-gray-800 rounded-full shadow-xl hover:scale-90 transition-all duration-200 hidden z-10">
+      Non 🙄
+    </button>
+  </div>
+
+
+  <!-- Acceptation de la demande -->
+  <div id="success" class="fixed inset-0 bg-black/80 flex flex-col items-center justify-center z-40 hidden text-center px-6">
+    <img
+      src="https://media.giphy.com/media/u8u0R51ND9L2/giphy.gif"
+      alt="Success"
+      class="w-72 h-72 mb-8 animate-float"
+    />
+
+    <h2 class="text-4xl sm:text-5xl font-black bg-gradient-to-r from-yellow-300 to-pink-500 bg-clip-text text-transparent drop-shadow-xl">
+      C’est un OUIIIIII 🥳💞
+    </h2>
+
+    <p class="mt-4 text-lg text-white/80">
+      Cette Saint-Valentin 2026 sera mémorable ✨
+    </p>
+
+    <p class="absolute bottom-4 right-4 text-white/60 text-sm italic select-none">
+    ~ By SKÃW !
+  </p>
+  </div>
+
+
+
+  <!-- Au cas ou la go n'entre pas son nom -->
+<div id="warningPopup" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+  <div class="bg-white text-gray-800 rounded-3xl p-8 max-w-sm w-11/12 text-center shadow-2xl animate-scaleIn">
+    <h3 class="text-xl font-bold mb-4">Oops 💕</h3>
+    <p class="mb-6 text-gray-600">
+      J'aurai besoin de ton nom avant qu'on ne continue 😊
+    </p>
+
+    <button
+      onclick="closeWarning()"
+      class="px-8 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full font-semibold hover:scale-105 transition-all">
+      Okay ! Je le mettrai...
+    </button>
+  </div>
+</div>
+
+  <script>
+    const namePopup = document.getElementById('namePopup');
+    const dynamicTitle = document.getElementById('dynamicTitle');
+    const nameDisplay = document.getElementById('nameDisplay');
+    const userNameInput = document.getElementById('userName');
+    const ouiBtn = document.getElementById('oui');
+    const nonBtn = document.getElementById('non');
+    const success = document.getElementById('success');
+
+    const isMobile = () => window.innerWidth < 768;
+
+    window.addEventListener('load', () => {
+      userNameInput.focus();
+    });
+
+    // Fonction démarrage
+    function startValentine() {
+      const name = userNameInput.value.trim();
+      if (!name) {
+  warningPopup.classList.remove('hidden');
+  return;
+}
+
+
+      namePopup.style.display = 'none';
+      nameDisplay.textContent = name;
+
+      dynamicTitle.classList.remove('hidden');
+      ouiBtn.classList.remove('hidden');
+      nonBtn.classList.remove('hidden');
+
+      positionButtons();
+    }
+
+    function positionButtons() {
+      const spacing = isMobile() ? 20 : 40;
+      ouiBtn.style.left = `calc(50% - ${160 + spacing}px)`;
+      ouiBtn.style.top = '60%';
+
+      nonBtn.style.left = `calc(50% + ${spacing}px)`;
+      nonBtn.style.top = '60%';
+    }
+
+
+    // Fonction pour déplacer le bouton Non 
+    function moveNonButton() {
+      const maxX = window.innerWidth - nonBtn.offsetWidth;
+      const maxY = window.innerHeight - nonBtn.offsetHeight;
+
+      nonBtn.style.left = Math.random() * maxX + 'px';
+      nonBtn.style.top = Math.random() * maxY + 'px';
+    }
+
+
+    // Fonction pour agrandir le bouton Oui
+    function growOuiButton() {
+     const currentScale = parseFloat(ouiBtn.getAttribute('data-scale') || 1);
             if (currentScale < 2) {
                 const newScale = Math.min(currentScale + 0.2, 2);
                 ouiBtn.setAttribute('data-scale', newScale);
@@ -112,33 +189,45 @@
             }
         }
 
-        // Bouton Non fuit au survol (desktop)
-        nonBtn.addEventListener('mouseenter', moveNonButton);
+    function closeWarning() {
+  warningPopup.classList.add('hidden');
+  userNameInput.focus();
+}
 
-        // Bouton Non fuit au clic (mobile/tablette)
-        nonBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            moveNonButton();
-            growOuiButton();
-        });
 
-        // Bouton Oui grandit au survol (desktop)
+// Bouton Non fuit au survol (desktop)
+    nonBtn.addEventListener('mouseenter', moveNonButton);
+
+
+     // Bouton Non fuit au clic (mobile/tablette)
+    nonBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      moveNonButton();
+      growOuiButton();
+    });
+
+
+    // Bouton Oui grandit au survol (desktop)
         ouiBtn.addEventListener('mouseenter', growOuiButton);
+
+
 
         // Bouton Oui grandit au toucher (mobile/tablette)
         ouiBtn.addEventListener('touchstart', growOuiButton);
 
-        // Succès au clic sur Oui
-        ouiBtn.addEventListener('click', () => {
-            document.querySelectorAll('button').forEach(b => b.style.display = 'none');
-            dynamicTitle.style.display = 'none';
-            success.classList.remove('hidden');
-        });
+     
+    // Succès au clic sur Oui
+    ouiBtn.addEventListener('click', () => {
+      ouiBtn.style.display = 'none';
+      nonBtn.style.display = 'none';
+      dynamicTitle.style.display = 'none';
+      success.classList.remove('hidden');
+    });
 
-        // Enter pour valider nom
-        userNameInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') startValentine();
-        });
-    </script>
+    userNameInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') startValentine();
+    });
+  </script>
+
 </body>
 </html>
