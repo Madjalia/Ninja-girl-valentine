@@ -85,6 +85,7 @@
     </button>
   </div>
 
+
   <!-- Acceptation de la demande -->
   <div id="success" class="fixed inset-0 bg-black/80 flex flex-col items-center justify-center z-40 hidden text-center px-6">
     <img
@@ -102,9 +103,11 @@
     </p>
 
     <p class="absolute bottom-4 right-4 text-white/60 text-sm italic select-none">
-    By SKÃW !
+    ~ By SKÃW !
   </p>
   </div>
+
+
 
   <!-- Au cas ou la go n'entre pas son nom -->
 <div id="warningPopup" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
@@ -137,6 +140,7 @@
       userNameInput.focus();
     });
 
+    // Fonction démarrage
     function startValentine() {
       const name = userNameInput.value.trim();
       if (!name) {
@@ -164,6 +168,8 @@
       nonBtn.style.top = '60%';
     }
 
+
+    // Fonction pour déplacer le bouton Non 
     function moveNonButton() {
       const maxX = window.innerWidth - nonBtn.offsetWidth;
       const maxY = window.innerHeight - nonBtn.offsetHeight;
@@ -172,14 +178,16 @@
       nonBtn.style.top = Math.random() * maxY + 'px';
     }
 
+
+    // Fonction pour agrandir le bouton Oui
     function growOuiButton() {
-      const scale = parseFloat(ouiBtn.dataset.scale || 1);
-      if (scale < 2) {
-        const newScale = scale + 0.2;
-        ouiBtn.dataset.scale = newScale;
-        ouiBtn.style.transform = `scale(${newScale})`;
-      }
-    }
+     const currentScale = parseFloat(ouiBtn.getAttribute('data-scale') || 1);
+            if (currentScale < 2) {
+                const newScale = Math.min(currentScale + 0.2, 2);
+                ouiBtn.setAttribute('data-scale', newScale);
+                ouiBtn.style.transform = `scale(${newScale})`;
+            }
+        }
 
     function closeWarning() {
   warningPopup.classList.add('hidden');
@@ -187,14 +195,28 @@
 }
 
 
+// Bouton Non fuit au survol (desktop)
     nonBtn.addEventListener('mouseenter', moveNonButton);
+
+
+     // Bouton Non fuit au clic (mobile/tablette)
     nonBtn.addEventListener('click', (e) => {
       e.preventDefault();
       moveNonButton();
       growOuiButton();
     });
 
-    ouiBtn.addEventListener('mouseenter', growOuiButton);
+
+    // Bouton Oui grandit au survol (desktop)
+        ouiBtn.addEventListener('mouseenter', growOuiButton);
+
+
+
+        // Bouton Oui grandit au toucher (mobile/tablette)
+        ouiBtn.addEventListener('touchstart', growOuiButton);
+
+     
+    // Succès au clic sur Oui
     ouiBtn.addEventListener('click', () => {
       ouiBtn.style.display = 'none';
       nonBtn.style.display = 'none';
